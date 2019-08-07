@@ -8,7 +8,7 @@ reposdir=$(grep reposdir= /etc/yum.conf || echo "reposdir=/etc/yum.repos.d")
 reposdir=$(echo ${reposdir} | cut -d"=" -f2)
 
 if [[ $(ls -A ${reposdir}) ]] ; then
-        grep ^gpgcheck /etc/yum.conf ${reposdir}/* | grep -E "gpgcheck=1" || exit $?
+        grep ^gpgcheck /etc/yum.conf ${reposdir}/* | grep -E "gpgcheck=[^1]" && exit 1
 else
         grep ^gpgcheck /etc/yum.conf | grep -E "gpgcheck=1" || exit $?
 fi
